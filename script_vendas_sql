@@ -1,0 +1,154 @@
+create database loja_vendas;
+use loja_vendas;
+
+create table vendas (
+	id_venda int primary key,
+    data_venda date,
+    produto varchar(100),
+    categoria varchar(50),
+    genero varchar(20),
+    quantidade int, 
+    valor_unitario decimal(10,2)
+);
+
+INSERT INTO vendas 
+(id_venda, data_venda, produto, categoria, genero, quantidade, valor_unitario)
+VALUES
+(1, '2026-01-05', 'Camiseta Básica', 'Casual', 'Feminino', 2, 79.90),
+(2, '2026-01-06', 'Calça Jeans', 'Casual', 'Feminino', 1, 159.90),
+(3, '2026-01-08', 'Vestido Floral', 'Vestido', 'Feminino', 1, 189.90),
+(4, '2026-01-10', 'Camisa Social', 'Social', 'Masculino', 2, 129.90),
+(5, '2026-01-12', 'Bermuda Sarja', 'Casual', 'Masculino', 1, 99.90),
+(6, '2026-01-15', 'Blusa Manga Longa', 'Casual', 'Feminino', 2, 109.90),
+(7, '2026-01-18', 'Jaqueta Jeans', 'Casual', 'Masculino', 1, 229.90),
+(8, '2026-01-20', 'Saia Midi', 'Vestido', 'Feminino', 1, 139.90),
+(9, '2026-01-22', 'Polo Masculina', 'Casual', 'Masculino', 2, 119.90),
+(10, '2026-01-25', 'Vestido Preto', 'Vestido', 'Feminino', 1, 199.90);
+
+SELECT * FROM vendas;
+
+SELECT SUM(quantidade * valor_unitario) AS faturamento_total
+FROM vendas;
+
+SELECT COUNT(*) AS total_vendas
+FROM vendas;
+
+SELECT SUM(quantidade) AS produtos_vendidos
+FROM vendas;
+
+SELECT AVG(quantidade * valor_unitario) AS ticket_medio
+FROM vendas;
+
+SELECT ROUND(AVG(quantidade * valor_unitario), 2) AS ticket_medio
+FROM vendas;
+
+SELECT categoria, SUM(quantidade * valor_unitario) AS faturamento
+FROM vendas
+GROUP BY categoria
+ORDER BY faturamento DESC;
+
+SELECT genero, SUM(quantidade * valor_unitario) AS faturamento
+FROM vendas
+GROUP BY genero
+ORDER BY faturamento DESC;
+
+SELECT genero, categoria, SUM(quantidade * valor_unitario) AS faturamento
+FROM vendas
+GROUP BY genero, categoria
+ORDER BY genero, faturamento DESC;
+
+SELECT produto, SUM(quantidade * valor_unitario) AS faturamento
+FROM vendas
+GROUP BY produto
+ORDER BY faturamento DESC;
+
+SELECT produto, SUM(quantidade) AS quantidade_vendida
+FROM vendas
+GROUP BY produto
+ORDER BY quantidade_vendida DESC;
+
+SELECT categoria, ROUND(AVG(valor_unitario), 2) AS preco_medio
+FROM vendas
+GROUP BY categoria
+ORDER BY preco_medio DESC;
+
+SELECT MONTH(data_venda) AS mes, SUM(quantidade * valor_unitario) AS faturamento
+FROM vendas
+GROUP BY MONTH(data_venda)
+ORDER BY mes;
+
+INSERT INTO vendas 
+(id_venda, data_venda, produto, categoria, genero, quantidade, valor_unitario)
+VALUES
+(11, '2026-02-03', 'Camiseta Básica', 'Casual', 'Feminino', 3, 79.90),
+(12, '2026-02-05', 'Calça Jeans', 'Casual', 'Feminino', 2, 159.90),
+(13, '2026-02-08', 'Vestido Floral', 'Vestido', 'Feminino', 2, 189.90),
+(14, '2026-02-10', 'Camisa Social', 'Social', 'Masculino', 1, 129.90),
+(15, '2026-02-12', 'Bermuda Sarja', 'Casual', 'Masculino', 2, 99.90),
+(16, '2026-02-15', 'Blusa Manga Longa', 'Casual', 'Feminino', 1, 109.90),
+(17, '2026-02-18', 'Jaqueta Jeans', 'Casual', 'Masculino', 2, 229.90),
+(18, '2026-02-20', 'Saia Midi', 'Vestido', 'Feminino', 2, 139.90),
+(19, '2026-02-22', 'Polo Masculina', 'Casual', 'Masculino', 1, 119.90),
+(20, '2026-02-25', 'Vestido Preto', 'Vestido', 'Feminino', 2, 199.90),
+
+(21, '2026-03-02', 'Camiseta Básica', 'Casual', 'Feminino', 1, 79.90),
+(22, '2026-03-05', 'Calça Jeans', 'Casual', 'Feminino', 1, 159.90),
+(23, '2026-03-07', 'Vestido Floral', 'Vestido', 'Feminino', 1, 189.90),
+(24, '2026-03-10', 'Camisa Social', 'Social', 'Masculino', 2, 129.90),
+(25, '2026-03-12', 'Bermuda Sarja', 'Casual', 'Masculino', 1, 99.90),
+(26, '2026-03-15', 'Blusa Manga Longa', 'Casual', 'Feminino', 3, 109.90),
+(27, '2026-03-18', 'Jaqueta Jeans', 'Casual', 'Masculino', 1, 229.90),
+(28, '2026-03-20', 'Saia Midi', 'Vestido', 'Feminino', 1, 139.90),
+(29, '2026-03-23', 'Polo Masculina', 'Casual', 'Masculino', 2, 119.90),
+(30, '2026-03-27', 'Vestido Preto', 'Vestido', 'Feminino', 1, 199.90),
+
+(31, '2026-04-03', 'Camiseta Básica', 'Casual', 'Feminino', 2, 79.90),
+(32, '2026-04-06', 'Calça Jeans', 'Casual', 'Feminino', 1, 159.90),
+(33, '2026-04-09', 'Vestido Floral', 'Vestido', 'Feminino', 2, 189.90),
+(34, '2026-04-11', 'Camisa Social', 'Social', 'Masculino', 2, 129.90),
+(35, '2026-04-14', 'Bermuda Sarja', 'Casual', 'Masculino', 2, 99.90),
+(36, '2026-04-17', 'Blusa Manga Longa', 'Casual', 'Feminino', 2, 109.90),
+(37, '2026-04-20', 'Jaqueta Jeans', 'Casual', 'Masculino', 1, 229.90),
+(38, '2026-04-22', 'Saia Midi', 'Vestido', 'Feminino', 2, 139.90),
+(39, '2026-04-25', 'Polo Masculina', 'Casual', 'Masculino', 2, 119.90),
+(40, '2026-04-28', 'Vestido Preto', 'Vestido', 'Feminino', 1, 199.90),
+
+(41, '2026-05-02', 'Camiseta Básica', 'Casual', 'Feminino', 2, 79.90),
+(42, '2026-05-05', 'Calça Jeans', 'Casual', 'Feminino', 2, 159.90),
+(43, '2026-05-08', 'Vestido Floral', 'Vestido', 'Feminino', 1, 189.90),
+(44, '2026-05-11', 'Camisa Social', 'Social', 'Masculino', 1, 129.90),
+(45, '2026-05-14', 'Bermuda Sarja', 'Casual', 'Masculino', 1, 99.90),
+(46, '2026-05-17', 'Blusa Manga Longa', 'Casual', 'Feminino', 2, 109.90),
+(47, '2026-05-20', 'Jaqueta Jeans', 'Casual', 'Masculino', 2, 229.90),
+(48, '2026-05-23', 'Saia Midi', 'Vestido', 'Feminino', 1, 139.90),
+(49, '2026-05-26', 'Polo Masculina', 'Casual', 'Masculino', 2, 119.90),
+(50, '2026-05-29', 'Vestido Preto', 'Vestido', 'Feminino', 2, 199.90);
+
+SELECT COUNT(*) AS total_registros
+FROM vendas;
+
+SELECT MONTH(data_venda) AS mes, 
+	ROUND(SUM(quantidade * valor_unitario), 2) AS faturamento
+FROM vendas
+GROUP BY MONTH(data_venda)
+ORDER BY mes;
+
+SELECT MONTH(data_venda) AS mes, COUNT(*) AS total_vendas
+FROM vendas
+GROUP BY MONTH(data_venda)
+ORDER BY mes;
+
+SELECT MONTH(data_venda) AS mes, rOUND(AVG(quantidade * valor_unitario), 2) AS ticket_medio
+FROM vendas
+GROUP BY MONTH(data_venda)
+ORDER BY mes;
+
+SELECT MONTH(data_venda) AS mes, categoria, ROUND(SUM(quantidade * valor_unitario), 2) AS faturamento
+FROM vendas
+GROUP BY MONTH(data_venda), categoria
+ORDER BY mes, faturamento DESC;
+
+SELECT produto, ROUND(SUM(quantidade * valor_unitario), 2) AS faturamento
+FROM vendas
+GROUP BY produto
+ORDER BY faturamento DESC;
